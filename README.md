@@ -129,6 +129,7 @@ Validation already performed:
 ```text
 .
 |-- README.md
+|-- generate_synthetic_data.py
 |-- main.py
 |-- upload_s3.py
 |-- .env
@@ -142,7 +143,7 @@ Validation already performed:
 
 ## How the Current Process Works
 
-1. `main.py` generates synthetic e-commerce data for the current month up to the execution date.
+1. `generate_synthetic_data.py` generates synthetic e-commerce data for the configured date range.
 2. The files are stored locally inside the `random_date/` folder.
 3. `upload_s3.py` reads the local files and uploads them to Amazon S3.
 4. The S3 RAW layer stores data partitioned by year, month, and day.
@@ -181,10 +182,12 @@ BUCKET_NAME=your-bucket-name
 ### Run the Generator
 
 ```bash
-python main.py
+python generate_synthetic_data.py
 ```
 
 This command generates CSV files for all entities and stores them in the `random_date/` directory.
+
+Compatibility note: `python main.py` still works and forwards execution to `generate_synthetic_data.py`.
 
 ### Upload Files to S3
 
